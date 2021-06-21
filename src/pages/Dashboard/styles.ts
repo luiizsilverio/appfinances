@@ -1,10 +1,14 @@
 import styled from 'styled-components/native'
+import { FlatList } from 'react-native'
 import { RFPercentage, RFValue } from 'react-native-responsive-fontsize'
 import { Feather } from '@expo/vector-icons'
+
+import { DataListProps } from './Dashboard'
 
 export const Container = styled.View`
   flex: 1;
   background-color: ${(props) => props.theme.colors.background};
+  padding-bottom: 12px;
 `
 export const Header = styled.View`
   width: 100%;
@@ -75,4 +79,12 @@ export const Title = styled.Text`
   font-size: ${RFValue(18)}px;
   font-family: ${(props) => props.theme.fonts.regular};
   margin-bottom: 16px;
+`;
+
+export const TransactionList = styled(
+  FlatList as new () => FlatList<DataListProps>
+).attrs({
+  showsVerticalScrollIndicator: false,
+})`
+  padding-bottom: 32px;
 `;

@@ -13,13 +13,54 @@ import {
   Icon,
   HighlightCards,
   Transactions,
-  Title
+  Title,
+  TransactionList
 } from './styles'
 
 import { HighlightCard } from '../../components/HighlightCard/HighlightCard'
-import { TransactionCard } from '../../components/TransactionCard/TransactionCard'
+import { TransactionCard, Transaction } from '../../components/TransactionCard/TransactionCard'
+
+export type DataListProps = Transaction & {
+  id: string
+}
 
 export function Dashboard() {
+  const data: DataListProps[] = [
+    {
+      id: '1',
+      title: "Desenvolvimento de site",
+      type: 'income',
+      amount: "R$ 12.000,00",
+      date: "13/04/2021",
+      category: {
+        name: "Vendas",
+        icon: "dollar-sign"
+      }
+    },
+    {
+      id: '2',
+      title: "Aluguel",
+      type: 'outcome',
+      amount: "R$ 1.500,00",
+      date: "20/04/2021",
+      category: {
+        name: "Casa",
+        icon: "home"
+      } 
+    },
+    {
+      id: '3',
+      title: "Outback",
+      type: 'outcome',
+      amount: "R$ 120,00",
+      date: "21/04/2021",
+      category: {
+        name: "Alimentação",
+        icon: "coffee"
+      } 
+    }
+  ]
+
   return (
     <Container>
       <Header>
@@ -62,9 +103,19 @@ export function Dashboard() {
       <Transactions>
         <Title>Listagem</Title>
 
-        <TransactionCard />
+        <TransactionList 
+          data={data}
+          keyExtractor={item => item.id}
+          renderItem={({ item }) => (
+            <TransactionCard data={ item } />
+          )}          
+        />
         
       </Transactions>
     </Container>
   )
 }
+function getBottomSpace(): string | number | undefined {
+  throw new Error('Function not implemented.')
+}
+
