@@ -1,4 +1,5 @@
 import React from 'react';
+import { StatusBar } from 'react-native'
 import { ThemeProvider } from 'styled-components';
 import AppLoading from 'expo-app-loading';
 
@@ -10,8 +11,8 @@ import {
 } from '@expo-google-fonts/poppins'
 
 import theme from './src/global/styles/theme'
-import { Register } from './src/pages/Register'
 import { Dashboard } from './src/pages/Dashboard/Dashboard'
+import { Register } from './src/pages/Register'
 
 export default function App() {  
   const [fontsLoaded] = useFonts({
@@ -27,6 +28,10 @@ export default function App() {
 
   return (
     <ThemeProvider theme={theme}>
+      <StatusBar 
+        barStyle="default" 
+      />
+
       <Register />
     </ThemeProvider>
   );
