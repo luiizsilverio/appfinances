@@ -1,13 +1,43 @@
 import React, { useState } from 'react'
-import { Modal } from 'react-native'
+import { useForm } from 'react-hook-form'
+import * as Yup from 'yup'
+import { yupResolver } from '@hookform/resolvers/yup'
 
-import { Input } from '../../components/Form/Input'
+import { 
+  Modal, 
+  TouchableWithoutFeedback, 
+  Keyboard,
+  Alert
+} from 'react-native'
+
+import { InputForm } from '../../components/Form/InputForm'
 import { Button } from '../../components/Form/Button'
 import { TransactionTypeButton } from '../../components/Form/TransactionTypeButton';
 import { CategoryButton } from '../../components/Form/CategoryButton';
 import { CategorySelect } from '../CategorySelect'
 
-import { Container, Header, Title, Form, Fields, TransactionTypes } from './styles';
+import { 
+  Container, 
+  Header, 
+  Title, 
+  Form, 
+  Fields, 
+  TransactionTypes 
+} from './styles';
+
+interface FormData {
+  name: string
+  amount: string
+
+}
+
+const schema = Yup.object().shape({
+  name: Yup.string()
+    .required('Digite o nome'),
+  amount: Yup.number()
+    .typeError('Valor incorreto')
+    .positive('Informe um valor maior que zero')
+})
 
 export function Register(){
   const [transactionType, setTransactionType] = useState('')
@@ -18,6 +48,12 @@ export function Register(){
     name: 'Categoria'
   })
 
+  const { control, handleSubmit, formState } = useForm({
+    resolver: yupResolver(schema)
+  })
+
+  const errors = formState.errors
+
   function handleCloseModal() {
      setModalOpen(false)
   }
@@ -26,16 +62,48 @@ export function Register(){
     setModalOpen(true)
   }
 
+  function handleRegister(form: FormData) {
+    if (!transactionType)
+      return Alert.alert('Selecione o tipo da transação')
+
+    if (category.key === 'category') 
+      return Alert.alert('Selecione a categoria')
+
+    const data = {
+      name: form.name,
+      amount: form.amount,
+      transactionType,
+      category: category.key
+    }
+
+  }
+
   return (
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>      
     <Container>
+
       <Header>
         <Title>Cadastro</Title>
       </Header>
 
       <Form>
         <Fields>
-          <Input placeholder="Nome" />
-          <Input placeholder="Preço" />
+          <InputForm 
+            name="name"
+            control={control}
+            placeholder="Nome" 
+            autoCapitalize="sentences"
+            autoCorrect={false}
+            error={errors.name && errors.name.message}
+          />
+
+          <InputForm 
+            name="amount"
+            control={control}
+            placeholder="Preço" 
+            keyboardType="numeric"
+            error={errors.amount && errors.amount.message}
+          />
           
           <TransactionTypes>
             <TransactionTypeButton 
@@ -58,7 +126,10 @@ export function Register(){
           />
         </Fields>
         
-        <Button title="Enviar" />
+        <Button 
+          title="Enviar" 
+          onPress={handleSubmit(handleRegister)}
+        />
       </Form>      
 
       <Modal visible={modalOpen}>
@@ -68,6 +139,8 @@ export function Register(){
           closeCategory={handleCloseModal}
         />
       </Modal>
+
     </Container>
+    </TouchableWithoutFeedback>
   );
 }
