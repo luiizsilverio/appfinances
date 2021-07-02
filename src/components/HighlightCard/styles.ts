@@ -36,7 +36,7 @@ export const Title  = styled.Text<TypeProps>`
   };
 `
 
-export const Icon  = styled(Feather)<TypeProps>`
+export const Icon = styled(Feather)<TypeProps>`
   font-size: ${RFValue(40)}px;
 
   ${(props) => props.type === 'in' && css`

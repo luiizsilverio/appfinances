@@ -1,4 +1,6 @@
+import 'react-native-gesture-handler';
 import React from 'react';
+import { NavigationContainer } from '@react-navigation/native'
 import { StatusBar } from 'react-native'
 import { ThemeProvider } from 'styled-components';
 import AppLoading from 'expo-app-loading';
@@ -11,8 +13,7 @@ import {
 } from '@expo-google-fonts/poppins'
 
 import theme from './src/global/styles/theme'
-import { Dashboard } from './src/pages/Dashboard/Dashboard'
-import { Register } from './src/pages/Register'
+import { AppRoutes } from './src/routes/app.routes'
 
 export default function App() {  
   const [fontsLoaded] = useFonts({
@@ -31,8 +32,13 @@ export default function App() {
       <StatusBar 
         barStyle="default" 
       />
-
-      <Register />
+      <NavigationContainer>
+        <AppRoutes />
+      </NavigationContainer>
     </ThemeProvider>
   );
 }
+
+10:00
+botao do CategorySelect nao funciona
+borda do CategoryButton nao mostra

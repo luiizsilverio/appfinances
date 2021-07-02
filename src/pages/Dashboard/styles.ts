@@ -2,7 +2,7 @@ import styled from 'styled-components/native'
 import { FlatList } from 'react-native'
 import { RFPercentage, RFValue } from 'react-native-responsive-fontsize'
 import { Feather } from '@expo/vector-icons'
-
+import { BorderlessButton } from 'react-native-gesture-handler'
 import { DataListProps } from './Dashboard'
 
 export const Container = styled.View`
@@ -30,7 +30,7 @@ export const UserWrapper = styled.View `
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  margin-top: ${RFValue(35 + 28)}px;
+  margin-top: ${RFValue(28)}px;
 `;
 
 export const UserInfo = styled.View `
@@ -59,6 +59,10 @@ export const Icon = styled(Feather)`
   font-size: ${RFValue(24)}px;
 `
 
+export const LogoutButton = styled(BorderlessButton)`
+  
+`;
+
 export const HighlightCards = styled.ScrollView.attrs({
   horizontal: true,
   showsHorizontalScrollIndicator: false,
@@ -66,19 +70,19 @@ export const HighlightCards = styled.ScrollView.attrs({
 })`
   width: 100%;
   position: absolute;
-  margin-top: ${RFPercentage(20)}px;
+  margin-top: ${RFPercentage(17)}px;
 `
 
 export const Transactions = styled.View`
   flex: 1;  
   padding: 0 24px;
-  margin-top: ${RFPercentage(12)}px;
+  margin-top: ${RFPercentage(10)}px;
 `;
 
 export const Title = styled.Text`
   font-size: ${RFValue(18)}px;
   font-family: ${(props) => props.theme.fonts.regular};
-  margin-bottom: 16px;
+  margin-bottom: 10px;
 `;
 
 export const TransactionList = styled(
