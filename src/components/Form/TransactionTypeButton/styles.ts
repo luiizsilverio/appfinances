@@ -14,26 +14,28 @@ interface ContainerProps {
   type: UpDown
 }
 
-export const Container = styled(RectButton)<ContainerProps>`
-  width: 48%;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
+export const Container = styled.View<ContainerProps>`
+  width: 48%; 
+
   border-width: ${({ isActive }) => isActive ? 0 : 1.5}px;
   border-style: solid;
-  border-color: ${({theme}) => theme.colors.text};
+  border-color: ${props => props.theme.colors.text};
   border-radius: 5px;
-  padding: 16px 16px;
 
   ${({ isActive, type }) => isActive && type === 'down' && css`
-    background-color: ${({ theme }) => theme.colors.attention_light};
+    background-color: ${props => props.theme.colors.attention_light};
   `};
 
   ${({ isActive, type }) => isActive && type === 'up' && css`
-    background-color: ${({ theme }) => theme.colors.success_light};
-  `};
-  
-  }
+    background-color: ${props => props.theme.colors.success_light};
+  `};  
+`;
+
+export const Button = styled(RectButton)`
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
 `;
 
 export const Icon = styled(Feather)<IconProps>`

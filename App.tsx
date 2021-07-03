@@ -38,7 +38,3 @@ export default function App() {
     </ThemeProvider>
   );
 }
-
-10:00
-botao do CategorySelect nao funciona
-borda do CategoryButton nao mostra
