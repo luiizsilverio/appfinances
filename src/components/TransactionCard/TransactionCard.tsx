@@ -1,5 +1,6 @@
 import React from 'react'
 import { Text } from 'react-native'
+import { categories } from '../../utils/categories'
 
 import { 
   Container,
@@ -12,17 +13,12 @@ import {
   Date
 } from './styles'
 
-interface Category {  
-  name: string
-  icon: string
-}
-
 export interface Transaction {
-  title: string
+  name: string
   amount: string
   type: 'income' | 'outcome'
   date: string
-  category: Category  
+  category: string  
 }
 
 interface TransactionProps {
@@ -30,9 +26,13 @@ interface TransactionProps {
 }
 
 export function TransactionCard({ data }: TransactionProps) {
+  const [category] = categories.filter(
+    item => item.key === data.category
+  )
+
   return (
     <Container>
-      <Title>{ data.title }</Title>
+      <Title>{ data.name }</Title>
 
       <Amount type={data.type}>
         { data.type === 'outcome' && '- ' }
@@ -41,8 +41,8 @@ export function TransactionCard({ data }: TransactionProps) {
 
       <Footer>
         <Category>
-          <Icon name={ data.category.icon || "dollar-sign" } />
-          <CategoryName>{ data.category.name }</CategoryName>
+          <Icon name={ category.icon || "dollar-sign" } />
+          <CategoryName>{ category.name }</CategoryName>
         </Category>
 
         <Date>{ data.date }</Date>

@@ -63,7 +63,10 @@ export function Register(){
   } = useForm({ resolver: yupResolver(schema) })
 
   const errors = formState.errors
-  console.count('Register')
+  
+  function handleTransactionsTypeSelect(type: "income" | "outcome") {
+    setTransactionType(type);
+  }
 
   function handleCloseModal() {
      setModalOpen(false)
@@ -84,7 +87,7 @@ export function Register(){
       id: String(uuid.v4()),
       name: form.name,
       amount: form.amount,
-      transactionType,
+      type: transactionType,
       category: category.key,
       date: new Date()
     }
@@ -157,15 +160,15 @@ export function Register(){
           <TransactionTypes>
             <TransactionTypeButton 
               type="up"
-              title="Income"
-              isActive={transactionType === 'up'}
-              onPress={() => setTransactionType("up")}
+              title="Entrada"
+              isActive={transactionType === 'income'}
+              onPress={() => setTransactionType("income")}
             />
             <TransactionTypeButton 
               type="down"
-              title="Outcome"
-              isActive={transactionType === 'down'}
-              onPress={() => setTransactionType("down")}
+              title="Saída"
+              isActive={transactionType === 'outcome'}
+              onPress={() => setTransactionType("outcome")}
             />
           </TransactionTypes>
 
