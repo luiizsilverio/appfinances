@@ -4,9 +4,9 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { useTheme } from 'styled-components'
 import { MaterialIcons } from '@expo/vector-icons'
 
-import { Dashboard } from '../pages/Dashboard/Dashboard'
-import { Register } from '../pages/Register'
-import { Summary } from '../pages/Summary'
+import { Dashboard } from '../screens/Dashboard'
+import { Register } from '../screens/Register'
+import { Summary } from '../screens/Summary'
 const { Navigator, Screen } = createBottomTabNavigator()
 
 export function AppRoutes() {

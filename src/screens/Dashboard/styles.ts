@@ -3,7 +3,7 @@ import { FlatList } from 'react-native'
 import { RFPercentage, RFValue } from 'react-native-responsive-fontsize'
 import { Feather } from '@expo/vector-icons'
 import { BorderlessButton } from 'react-native-gesture-handler'
-import { DataListProps } from './Dashboard'
+import { DataListProps } from '.'
 
 export const Container = styled.View`
   flex: 1;
