@@ -40,6 +40,7 @@ const schema = Yup.object().shape({
   amount: Yup.number()
     .typeError('Valor incorreto')
     .positive('Informe um valor maior que zero')
+    .required('Informe o valor')
 })
 
 const chave = '@gofinances:transactions'

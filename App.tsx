@@ -31,10 +31,11 @@ export default function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <StatusBar 
-        barStyle="default" 
-      />
       <NavigationContainer>
+        <StatusBar 
+          barStyle="default" 
+        />
+
         <AppRoutes />
       </NavigationContainer>
     </ThemeProvider>
