@@ -17,6 +17,7 @@ import {
 import theme from './src/global/styles/theme'
 import { AppRoutes } from './src/routes/app.routes'
 import { SignIn } from './src/screens/SignIn'
+import { AuthProvider } from './src/hooks/auth'
 
 export default function App() {  
   const [fontsLoaded] = useFonts({
@@ -37,7 +38,10 @@ export default function App() {
           barStyle="default" 
         />
 
-        <SignIn />
+        <AuthProvider>
+          <SignIn />
+        </AuthProvider>
+
       </NavigationContainer>
     </ThemeProvider>
   );
