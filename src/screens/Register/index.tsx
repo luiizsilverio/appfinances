@@ -18,6 +18,7 @@ import { Button } from '../../components/Form/Button'
 import { TransactionTypeButton } from '../../components/Form/TransactionTypeButton';
 import { CategoryButton } from '../../components/Form/CategoryButton';
 import { CategorySelect } from '../CategorySelect'
+import { useAuth } from '../../hooks/auth'
 
 import { 
   Container, 
@@ -48,6 +49,8 @@ const chave = '@gofinances:transactions'
 export function Register(){
   const [transactionType, setTransactionType] = useState('')
   const [modalOpen, setModalOpen] = useState(false)
+  
+  const { user } = useAuth()
 
   const [category, setCategory] = useState({
     key: 'category',
