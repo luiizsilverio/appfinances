@@ -7,8 +7,10 @@ import { MaterialIcons } from '@expo/vector-icons'
 import { Dashboard } from '../screens/Dashboard'
 import { Register } from '../screens/Register'
 import { Summary } from '../screens/Summary'
+
 const { Navigator, Screen } = createBottomTabNavigator()
 
+// Rotas Privadas *****
 export function AppRoutes() {
   const theme = useTheme()
 
