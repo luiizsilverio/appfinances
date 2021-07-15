@@ -29,8 +29,6 @@ export type DataListProps = Transaction & {
   id: string
 }
 
-const userKey = '@gofinances:transactions'
-
 type CardProps = {
   amount: string
   lastTransaction: string
@@ -48,17 +46,23 @@ export function Dashboard() {
   const [cards, setCards] = useState<CardData>({} as CardData)
 
   const { signOut, user } = useAuth()
+  const userKey = `@gofinances:transactions_user:${user.id}`
 
   function getLastTransactionDate( 
     lista: DataListProps[],
     type: 'income' | 'outcome' ) 
   {
+    const listaFiltrada = lista
+      .filter(item => item.type === type)
+
     const lastTransaction = new Date(
-      Math.max.apply(Math, lista
-      .filter(item => item.type === 'outcome')
+      Math.max.apply(Math, listaFiltrada
       .map(item => new Date(item.date).getTime())))
     
-    return lastTransaction.toLocaleDateString('pt-BR', {
+    if (listaFiltrada.length === 0) 
+        return "(não tem)"
+
+    return lastTransaction.toLocaleDateString('pt-BR', {      
       day: '2-digit',
       month: 'long',      
     })
@@ -104,9 +108,11 @@ export function Dashboard() {
 
     setTransactions(transFormatted)   
     
-    const lastIncome = getLastTransactionDate(transactions, 'income')
-    const lastOutcome = getLastTransactionDate(transactions, 'outcome')
-    const interval = `01 a ${lastOutcome ? lastOutcome : lastIncome}`
+    const ultIncome   = getLastTransactionDate(transactions, 'income')
+    const ultOutcome  = getLastTransactionDate(transactions, 'outcome')
+    const lastIncome  = `dia ${ultIncome}`
+    const lastOutcome = `dia ${ultOutcome}`
+    const interval    = `01 a ${ultOutcome ? ultOutcome : ultIncome}`
 
     setCards({
       entradas: { amount: totEntradas
@@ -114,14 +120,14 @@ export function Dashboard() {
           style: 'currency',
           currency: 'BRL' 
         }),
-        lastTransaction: `Última entrada dia ${lastIncome}`
+        lastTransaction: `Última entrada ${lastIncome}`
       },
       saidas: { amount: totSaidas
         .toLocaleString('pt-BR', {
           style: 'currency',
           currency: 'BRL' 
         }),
-        lastTransaction: `Última entrada dia ${lastOutcome}`
+        lastTransaction: `Última entrada ${lastOutcome}`
       },
       total: { amount: (totEntradas - totSaidas)
         .toLocaleString('pt-BR', {

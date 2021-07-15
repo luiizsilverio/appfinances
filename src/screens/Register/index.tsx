@@ -44,14 +44,13 @@ const schema = Yup.object().shape({
     .required('Informe o valor')
 })
 
-const chave = '@gofinances:transactions'
-
 export function Register(){
   const [transactionType, setTransactionType] = useState('')
   const [modalOpen, setModalOpen] = useState(false)
-  
-  const { user } = useAuth()
 
+  const { user } = useAuth()
+  const userKey = `@gofinances:transactions_user:${user.id}`
+      
   const [category, setCategory] = useState({
     key: 'category',
     name: 'Categoria'
@@ -97,12 +96,12 @@ export function Register(){
     }
 
     try {   
-      const data = await AsyncStorage.getItem(chave)      
+      const data = await AsyncStorage.getItem(userKey)      
       const currentData = data ? JSON.parse(data) : []
 
       const newData = [...currentData, newTransaction]
 
-      await AsyncStorage.setItem(chave, JSON.stringify(newData))
+      await AsyncStorage.setItem(userKey, JSON.stringify(newData))
 
       reset()
 
@@ -123,12 +122,12 @@ export function Register(){
 
   // useEffect(() => {
   //   async function loadData() {
-  //     const data = await AsyncStorage.getItem(chave)
+  //     const data = await AsyncStorage.getItem(userKey)
   //     console.log(JSON.parse(data!))
   //   }
 
   //   async function clearData() {
-  //     await AsyncStorage.removeItem(chave)
+  //     await AsyncStorage.removeItem(userKey)
   //   }
 
   //   loadData()

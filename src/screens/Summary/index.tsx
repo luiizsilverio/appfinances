@@ -10,6 +10,7 @@ import { ptBR } from 'date-fns/locale';
 
 import { HistoryCard } from '../../components/HistoryCard'
 import { categories } from '../../utils/categories'
+import { useAuth } from '../../hooks/auth'
 
 import { 
   Container,
@@ -47,6 +48,9 @@ export function Summary() {
   const [selectedDate, setSelectedDate] = useState(new Date())
   const [isLoading, setIsLoading] = useState(true)
 
+  const { user } = useAuth()
+  const userKey = `@gofinances:transactions_user:${user.id}`
+
   function handleDateChange(action: 'next' | 'prev') {
     let newDate
     if (action === 'next') {
@@ -61,8 +65,7 @@ export function Summary() {
   async function loadData() {
     setIsLoading(true)
     
-    const chave = '@gofinances:transactions'
-    const response = await AsyncStorage.getItem(chave)
+    const response = await AsyncStorage.getItem(userKey)
     const respFormatted = response ? JSON.parse(response) : []
 
     const saidas = respFormatted
