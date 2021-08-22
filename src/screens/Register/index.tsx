@@ -187,7 +187,7 @@ export function Register(){
         />
       </Form>      
 
-      <Modal visible={modalOpen}>
+      <Modal visible={modalOpen} testID="modal-category">
         <CategorySelect 
           category={category}
           setCategory={setCategory}
