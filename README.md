@@ -1,4 +1,10 @@
-# AppFinances
+<table>
+  <tr>
+    <td><img src="https://github.com/luiizsilverio/appfinances/blob/main/assets/logo.png" /></td>
+    <td><h1>AppFinances</h1></td>
+  </tr>
+</table>
+
 ## Conteúdo
 * [Sobre o Projeto](#sobre-o-projeto)
 * [Tecnologias](#hammer_and_wrench-tecnologias)
